@@ -1,39 +1,43 @@
-# Container Platform Terraform Module Template
+# Container Platform Terraform Starter Pack
 
-[![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/container-platform-terraform-template/badge)](https://github-community.service.justice.gov.uk/repository-standards/container-platform-terraform-template)
+[![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/container-platform-terraform-starter-pack/badge)](https://github-community.service.justice.gov.uk/repository-standards/container-platform-terraform-starter-pack)
 
-A template repository for building Terraform modules for the Container Platform.
+A Terraform module that deploys a simple hello-world application to a Kubernetes cluster. This module deploys a hello-world application that listens on port 8080 and responds to HTTP requests. 
 
 ## Usage
 
-Click **"Use this template"** to create a new Terraform module repository.
+```hcl
+module "starter_pack" {
+  source = "github.com/ministryofjustice/container-platform-terraform-starter-pack?ref=1.0.0"
 
-## Structure
+  # Required: name of the Gateway resource referenced by the HTTPRoute
+  gateway_name = "my-gateway"
 
+  # Required: namespace of the Gateway resource referenced by the HTTPRoute
+  gateway_namespace = "gateway-system"
+}
 ```
-├── main.tf           # Main module resources
-├── variables.tf      # Input variables
-├── outputs.tf        # Output values
-├── versions.tf       # Provider and Terraform version constraints
-└── README.md
-```
 
-## After Creating Your Module
+## Inputs
 
-1. Update this README with your module's documentation
-2. Update `CODEOWNERS` with the appropriate team
-3. Review `dependabot.yml` configuration
-4. Update the compliance badge URL with your repository name
-5. Add your Terraform resources to `main.tf`
-6. Define input variables in `variables.tf`
-7. Define outputs in `outputs.tf`
-8. Set version constraints in `versions.tf`
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| `gateway_name` | string | n/a | Name of the Gateway resource for the HTTPRoute to reference |
+| `gateway_namespace` | string | n/a | Namespace of the Gateway resource for the HTTPRoute to reference |
 
-## Requirements
 
-| Name | Version |
-|------|---------|
-| terraform | >= 1.0 |
+## What Gets Deployed
+
+When applied, this module creates:
+
+1. **Namespace**: `starter-pack`
+2. **Deployment**: Runs the hello-world Go application
+3. **Service**: Exposes the deployment on port 8080
+4. **HTTPRoute**: Routes HTTP traffic from the specified Gateway to the Service
+
+The hello-world app responds with a simple HTML page displaying:
+- Title: "Hello World"
+- Message: "Welcome to the container platform"
 
 ## Repository Standards
 
