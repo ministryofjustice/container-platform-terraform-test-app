@@ -11,7 +11,10 @@ resource "kubectl_manifest" "service" {
 }
 
 resource "kubectl_manifest" "deployment" {
-  yaml_body = file("${path.module}/manifests/deployment.yaml")
+  yaml_body = templatefile("${path.module}/manifests/deployment.yaml", {
+    image_repository = var.image_repository
+    image_tag        = var.image_tag
+  })
 
   depends_on = [
     kubectl_manifest.namespace
@@ -19,6 +22,7 @@ resource "kubectl_manifest" "deployment" {
 }
 
 resource "kubectl_manifest" "http_route" {
+  count = var.enable_httproute ? 1 : 0
   yaml_body = templatefile("${path.module}/manifests/http-route.yaml", {
     gateway_name      = var.gateway_name
     gateway_namespace = var.gateway_namespace

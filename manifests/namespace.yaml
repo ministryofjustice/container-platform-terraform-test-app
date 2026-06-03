@@ -2,3 +2,5 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: starter-pack
+  labels:
+    pod-security.kubernetes.io/enforce: restricted

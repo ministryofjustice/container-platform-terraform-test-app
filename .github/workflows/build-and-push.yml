@@ -29,7 +29,6 @@ jobs:
       - name: Build and push image to ECR
         run: |
           docker build \
-            -t $IMAGE_NAME:latest \
             -t $IMAGE_NAME:${{ github.ref_name }} \
             app
           docker push $IMAGE_NAME:latest
