@@ -1,14 +1,14 @@
-# Container Platform Terraform Starter Pack
+# Container Platform Terraform Test App 
 
-[![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/container-platform-terraform-starter-pack/badge)](https://github-community.service.justice.gov.uk/repository-standards/container-platform-terraform-starter-pack)
+[![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/container-platform-terraform-test-app/badge)](https://github-community.service.justice.gov.uk/repository-standards/container-platform-terraform-test-app)
 
-A Terraform module that deploys a simple hello-world application to a Kubernetes cluster. This module deploys a hello-world application that listens on port 8080 and responds to HTTP requests. 
+A Terraform module that deploys a simple test application to a Kubernetes cluster. This module deploys a sample Go application that listens on port 8080 and responds to HTTP requests. 
 
 ## Usage
 
 ```hcl
-module "starter_pack" {
-  source = "github.com/ministryofjustice/container-platform-terraform-starter-pack?ref=1.0.0"
+module "test_app" {
+  source = "github.com/ministryofjustice/container-platform-terraform-test-app?ref=1.0.0"
 
   # Optional: set true to create an HTTPRoute resource
   enable_httproute = true
@@ -20,10 +20,10 @@ module "starter_pack" {
   gateway_namespace = "gateway-system"
 
   # Required when enable_httproute = true: hostnames for the HTTPRoute
-  hostnames = ["starter-pack.apps.example.com"]
+  hostnames = ["test-app.apps.example.com"]
 
   # Required: container image repository
-  image_repository = "557395370360.dkr.ecr.eu-west-2.amazonaws.com/cloud-platform/container-platform-terraform-starter-pack"
+  image_repository = "557395370360.dkr.ecr.eu-west-2.amazonaws.com/cloud-platform/container-platform-terraform-test-app"
 
   # Optional: override the deployed application tag
   image_tag        = "1.0.0"
@@ -46,12 +46,12 @@ module "starter_pack" {
 
 When applied, this module creates:
 
-1. **Namespace**: `starter-pack`
-2. **Deployment**: Runs the hello-world Go application
+1. **Namespace**: `test-app`
+2. **Deployment**: Runs the test-app Go application
 3. **Service**: Exposes the deployment on port 8080
 4. **HTTPRoute (optional)**: Routes HTTP traffic from the specified Gateway to the Service when `enable_httproute = true`
 
-The hello-world app responds with a simple HTML page displaying:
+The sample app responds with a simple HTML page displaying:
 - Title: "Hello World"
 - Message: "Welcome to the container platform"
 

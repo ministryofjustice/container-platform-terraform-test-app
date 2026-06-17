@@ -33,8 +33,8 @@ variable "hostnames" {
 
 variable "namespace" {
   type        = string
-  description = "Namespace to create for the starter pack"
-  default     = "starter-pack"
+  description = "Namespace to create for the test app"
+  default     = "test-app"
 }
 
 variable "enable_httproute" {

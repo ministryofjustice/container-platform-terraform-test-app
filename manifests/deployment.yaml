@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-world-deployment
+  name: test-app-deployment
   namespace: ${namespace}
   labels:
-    app: hello-world
+    app: test-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-world
+      app: test-app
   template:
     metadata:
       labels:
-        app: hello-world
+        app: test-app
     spec:
       containers:
-        - name: hello-world
+        - name: test-app
           image: ${image_repository}:${image_tag}
           imagePullPolicy: Always
           securityContext:

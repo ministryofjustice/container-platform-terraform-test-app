@@ -8,8 +8,8 @@ RUN go mod download
 COPY *.go ./
 COPY index.html.tmpl ./
 
-RUN CGO_ENABLED=0 go build -o /hello
+RUN CGO_ENABLED=0 go build -o /test-app
 
 USER 1001:1001
 
-CMD ["/hello"]
+CMD ["/test-app"]
